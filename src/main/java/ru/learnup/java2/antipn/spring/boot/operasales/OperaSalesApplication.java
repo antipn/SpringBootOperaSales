@@ -34,7 +34,7 @@ public class OperaSalesApplication {
         //manager.deleteEventInDB();
 
 //5) Покупать билет на мероприятие
-        //manager.sellTicketInDB();
+        manager.sellTicketInDB();
 //6) сдавать билеты на мероприятие
         //manager.returnTicketInDB(); // возврат билета
 

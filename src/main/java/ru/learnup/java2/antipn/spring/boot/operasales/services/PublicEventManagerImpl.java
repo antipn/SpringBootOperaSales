@@ -9,6 +9,7 @@ import ru.learnup.java2.antipn.spring.boot.operasales.loggers.Logger;
 import ru.learnup.java2.antipn.spring.boot.operasales.reporsitories.EventRepository;
 import ru.learnup.java2.antipn.spring.boot.operasales.reporsitories.TicketRepository;
 
+import javax.transaction.Transactional;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -247,6 +248,7 @@ public class PublicEventManagerImpl implements PublicEventManager {
     }
 
     //5 Selling process of ticket to event
+    @Transactional
     public void sellTicketInDB() throws IOException {
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
         showEventsInDB();

@@ -43,7 +43,9 @@ public class PublicEvent {
 
     //к сожалению на данном этапе разработки LAZY не работает, приходится пользоваться EAGER, надеюсь после прикручивания транзакций получится это обойти!
     //однозначного ответа честно не нашел
-    @OneToMany(mappedBy = "event", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+
+    //Добавил LAZY и транзакции к методом которым нужно дергать билеты
+    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ticket> tickets; // list of ticket for event
 
 

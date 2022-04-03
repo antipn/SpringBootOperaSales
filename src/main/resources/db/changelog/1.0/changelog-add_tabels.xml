@@ -101,7 +101,7 @@
             INSERT INTO tickets (id, event_id, seat_number, ticket_status)
             VALUES (nextval('hibernate_sequence_tickets'), 5, 1, false);
             INSERT INTO tickets (id, event_id, seat_number, ticket_status)
-            VALUES (nextval('hibernate_sequence_tickets'), 5, 1, false);
+            VALUES (nextval('hibernate_sequence_tickets'), 5, 2, false);
 --             REINDEX INDEX  tickets_pkey;
         </sql>
 
