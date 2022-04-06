@@ -3,7 +3,6 @@ package ru.learnup.java2.antipn.spring.boot.operasales;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import ru.learnup.java2.antipn.spring.boot.operasales.entity.PublicEvent;
 import ru.learnup.java2.antipn.spring.boot.operasales.services.PublicEventManagerImpl;
 
 import java.io.IOException;
@@ -13,7 +12,7 @@ public class OperaSalesApplication {
 
     public static void main(String[] args) throws IOException {
 
-        ConfigurableApplicationContext context = SpringApplication.run(OperaSalesApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication. run(OperaSalesApplication.class, args);
         PublicEventManagerImpl manager = context.getBean(PublicEventManagerImpl.class);
 
 //1) Добавлять новые премьеры
@@ -34,7 +33,7 @@ public class OperaSalesApplication {
         //manager.deleteEventInDB();
 
 //5) Покупать билет на мероприятие
-        manager.sellTicketInDB();
+        //manager.sellTicketInDB();
 //6) сдавать билеты на мероприятие
         //manager.returnTicketInDB(); // возврат билета
 
