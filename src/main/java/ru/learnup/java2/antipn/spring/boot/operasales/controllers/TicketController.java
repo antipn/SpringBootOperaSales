@@ -9,7 +9,7 @@ import ru.learnup.java2.antipn.spring.boot.operasales.services.PublicEventManage
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/app/v1/tickets") //наше контроллер начинает с этого пути + остальное методами и их маппингом
+@RequestMapping("/app/v1/tickets") //наш контроллер начинает с этого пути + остальное методами и их маппингом
 
 public class TicketController {
     private final PublicEventManager eventManager;

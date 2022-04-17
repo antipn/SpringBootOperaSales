@@ -15,6 +15,9 @@ public class OperaSalesApplication {
         ConfigurableApplicationContext context = SpringApplication. run(OperaSalesApplication.class, args);
         PublicEventManagerImpl manager = context.getBean(PublicEventManagerImpl.class);
 
+        //вывод пользователей в консоль
+        manager.showUsers();
+
 //1) Добавлять новые премьеры
         //manager.addEventQuick(); //добавить событие быстро без ввода данных
         //manager.addEvent();   //добавить событие вручную

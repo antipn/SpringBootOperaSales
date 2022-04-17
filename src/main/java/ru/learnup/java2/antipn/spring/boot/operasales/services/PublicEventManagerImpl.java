@@ -14,6 +14,7 @@ import ru.learnup.java2.antipn.spring.boot.operasales.mapper.PublicEventMapper;
 import ru.learnup.java2.antipn.spring.boot.operasales.mapper.TicketMapper;
 import ru.learnup.java2.antipn.spring.boot.operasales.reporsitories.EventRepository;
 import ru.learnup.java2.antipn.spring.boot.operasales.reporsitories.TicketRepository;
+import ru.learnup.java2.antipn.spring.boot.operasales.reporsitories.UserRepository;
 
 import javax.transaction.Transactional;
 import java.io.*;
@@ -22,13 +23,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-
-/**
- * Created with IntelliJ IDEA.
- * User: antipn
- * Created on 09.02.2022, 21:13
- * Description:
- */
 
 @Component
 //у нас тут описана логика работы с базой данной! это у нас сервис
@@ -41,15 +35,17 @@ public class PublicEventManagerImpl implements PublicEventManager {
 
     private EventRepository eventRepository;
     private TicketRepository ticketRepository;
+    private  UserRepository userRepository;
 
     private final PublicEventMapper mapperE = PublicEventMapper.MAPPER;
     private final TicketMapper mapperT = TicketMapper.MAPPER;
 
     @Autowired
-    public PublicEventManagerImpl(Logger mylogger, EventRepository eventRepository, TicketRepository ticketRepository) {
+    public PublicEventManagerImpl(Logger mylogger, EventRepository eventRepository, TicketRepository ticketRepository, UserRepository userRepository) {
         this.mylogger = mylogger;
         this.eventRepository = eventRepository;
         this.ticketRepository = ticketRepository;
+        this.userRepository = userRepository;
     }
     // controllers level
 
@@ -152,7 +148,7 @@ public class PublicEventManagerImpl implements PublicEventManager {
                         soldTicket = ticket;
                         ticket.setTicketStatus(true);
                         event.increaseSoldTicket();
-                        System.out.println("Билет успешно продан");
+                        System.out.println("Билет Id: " + ticket.getId() + "  успешно продан на место " + ticket.getSeatNumberTicket());
                         break;
                     }
                     if (ticket.getSeatNumberTicket() == purchasingNumber && (ticket.isTicketStatus())) {
@@ -180,12 +176,12 @@ public class PublicEventManagerImpl implements PublicEventManager {
         if (event.getSoldTicketsCount() < event.getTicketsIssued()) {//если есть билеты в продаже -> которые не проданы
             System.out.println("Есть свободные билеты");
             for (Ticket ticket : event.getTickets()) {
-                System.out.println("Проверяем билет с номером " + ticket.getId() + " на посодочное место " + ticket.getSeatNumberTicket());
+                System.out.println("Проверяем билет с номером " + ticket.getId() + " на посадочное место " + ticket.getSeatNumberTicket());
                 if (!ticket.isTicketStatus()) { //билет в продаже со статусом false
                     ticket.setTicketStatus(true);//если нашли первый свободный билет то продаем его
                     soldTicket = ticket;
                     event.increaseSoldTicket();
-                    System.out.println("Билет успешно продан " + ticket.getId() + " на место " + ticket.getSeatNumberTicket());
+                    System.out.println("Билет Id: " + ticket.getId() + "  успешно продан на место " + ticket.getSeatNumberTicket());
                     break; // заканчиваем перебор
                 }
             }
@@ -249,6 +245,11 @@ public class PublicEventManagerImpl implements PublicEventManager {
 
 
     //repositories level
+
+    //проверка что есть пользователи в памяти
+    public void showUsers(){
+        userRepository.showUsers();
+    }
 
     public Collection<PublicEvent> getAllEvents() {
         return eventRepository.findAll();
