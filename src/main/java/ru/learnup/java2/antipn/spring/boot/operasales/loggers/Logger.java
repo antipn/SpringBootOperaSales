@@ -1,4 +1,4 @@
-package ru.learnup.java2.antipn.spring.boot.operasales;
+package ru.learnup.java2.antipn.spring.boot.operasales.loggers;
 
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Logger {
-    public void printing(){
+    public void printing() {
         System.out.println("Логгер активирован");
     }
 }

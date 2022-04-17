@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1_add_events" author="antipn">
+        <createTable tableName="events">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(20)"/>
+            <column name="date" type="varchar(10)"/>
+            <column name="time" type="varchar(10)"/>
+            <column name="hall" type="int"/>
+            <column name="rars" type="varchar(3)"/>
+            <column name="tickets_issued" type="int"/>
+            <column name="tickets_sold" type="int"/>
+        </createTable>
+        <!-- проверка на уникаольность помимо первичного ключа-->
+        <addUniqueConstraint tableName="events" columnNames="id,name"/>
+
+        <sql>
+            CREATE SEQUENCE hibernate_sequence_event
+                minvalue 1
+                start with 1
+                increment by 1 cache 1;
+
+            INSERT INTO events(id, name, date, time, hall, rars, tickets_issued, tickets_sold)
+            VALUES (nextval('hibernate_sequence_event'), 'Event_1', '10 02 2022', '17 00', 1, '12+', 2, 0);
+
+            INSERT INTO events(id, name, date, time, hall, rars, tickets_issued, tickets_sold)
+            VALUES (nextval('hibernate_sequence_event'), 'Event_2', '11 02 2022', '18 00', 1, '12+', 3, 0);
+
+            INSERT INTO events(id, name, date, time, hall, rars, tickets_issued, tickets_sold)
+            VALUES (nextval('hibernate_sequence_event'), 'Event_3', '14 02 2022', '19 40', 1, '12+', 2, 0);
+
+            INSERT INTO events(id, name, date, time, hall, rars, tickets_issued, tickets_sold)
+            VALUES (nextval('hibernate_sequence_event'), 'Event_4', '15 02 2022', '20 10', 1, '12+', 4, 0);
+
+            INSERT INTO events(id, name, date, time, hall, rars, tickets_issued, tickets_sold)
+            VALUES (nextval('hibernate_sequence_event'), 'Щелкунчик', '10 03 2022', '19 45', 1, '12+', 2, 0);
+
+--             REINDEX INDEX  events_pkey;
+        </sql>
+
+    </changeSet>
+
+    <changeSet id="2_add_tickets" author="antipn">
+        <createTable tableName="tickets">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="event_id" type="int"/>
+            <column name="seat_number" type="int"/>
+            <column name="ticket_status" type="boolean"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="tickets" baseColumnNames="event_id"
+                                 constraintName="tickets_event_id_fk"
+                                 referencedTableName="events"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"/>
+
+        <sql>
+            CREATE SEQUENCE hibernate_sequence_tickets
+                minvalue 1
+                start with 1
+                increment by 1 cache 1;
+            INSERT INTO tickets (id, event_id, seat_number, ticket_status)
+            VALUES (nextval('hibernate_sequence_tickets'), 1, 1, false);
+            INSERT INTO tickets (id, event_id, seat_number, ticket_status)
+            VALUES (nextval('hibernate_sequence_tickets'), 1, 2, false);
+
+
+            INSERT INTO tickets (id, event_id, seat_number, ticket_status)
+            VALUES (nextval('hibernate_sequence_tickets'), 2, 1, false);
+            INSERT INTO tickets (id, event_id, seat_number, ticket_status)
+            VALUES (nextval('hibernate_sequence_tickets'), 2, 2, false);
+            INSERT INTO tickets (id, event_id, seat_number, ticket_status)
+            VALUES (nextval('hibernate_sequence_tickets'), 2, 3, false);
+
+
+            INSERT INTO tickets (id, event_id, seat_number, ticket_status)
+            VALUES (nextval('hibernate_sequence_tickets'), 3, 1, false);
+            INSERT INTO tickets (id, event_id, seat_number, ticket_status)
+            VALUES (nextval('hibernate_sequence_tickets'), 3, 2, false);
+
+            INSERT INTO tickets (id, event_id, seat_number, ticket_status)
+            VALUES (nextval('hibernate_sequence_tickets'), 4, 1, false);
+            INSERT INTO tickets (id, event_id, seat_number, ticket_status)
+            VALUES (nextval('hibernate_sequence_tickets'), 4, 2, false);
+            INSERT INTO tickets (id, event_id, seat_number, ticket_status)
+            VALUES (nextval('hibernate_sequence_tickets'), 4, 3, false);
+            INSERT INTO tickets (id, event_id, seat_number, ticket_status)
+            VALUES (nextval('hibernate_sequence_tickets'), 4, 4, false);
+
+            INSERT INTO tickets (id, event_id, seat_number, ticket_status)
+            VALUES (nextval('hibernate_sequence_tickets'), 5, 1, false);
+            INSERT INTO tickets (id, event_id, seat_number, ticket_status)
+            VALUES (nextval('hibernate_sequence_tickets'), 5, 2, false);
+--             REINDEX INDEX  tickets_pkey;
+        </sql>
+
+    </changeSet>
+
+</databaseChangeLog>
